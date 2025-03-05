@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "sass": "sass --watch styles.scss:dist/styles.css",
-    "build:sass": "sass styles.scss dist/styles.css --watch"
+    "build:sass": "sass styles.scss dist/styles.css --watch",
+    "predeploy": "npm run build:sass",
+    "deploy": "gh-pages -d dist"
   },
   "repository": {
     "type": "git",
@@ -21,6 +23,7 @@
   "homepage": "https://github.com/alinaa2501/eLearning-Company#readme",
   "description": "",
   "devDependencies": {
+    "gh-pages": "^6.3.0",
     "sass": "^1.85.0"
   }
 }
