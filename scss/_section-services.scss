@@ -1,0 +1,393 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+@use 'global';
+
+.services {
+  padding-top: 65px;
+
+  &__wrapper {
+    padding: 0 0 45px 60px;
+    @include border-box-first;
+
+    /* hide vertical line top */
+    &::before {
+      @include absolute-box;
+      top: 0px;
+      left: -1.5rem;
+    }
+
+    &::after {
+      content: '';
+      @include circle-size;
+      top: 1.7rem;
+      left: -1.3rem;
+    }
+  }
+
+  .services {
+    position: relative;
+  }
+
+  &__title {
+    font-size: 50px;
+    color: $gray-title;
+    margin-bottom: 35px;
+  }
+
+  &__filters {
+    @include flex-center;
+    justify-content: start;
+    margin-bottom: 72px;
+    gap: 50px;
+  }
+}
+
+.filters {
+  &__search {
+    @include flex-center;
+    position: relative;
+
+    &-input {
+      width: 300px;
+      padding: 11px 45px 11px 20px;
+      border-radius: 27.5px;
+      border: none;
+      outline: none;
+      font-size: 16px;
+      background-color: $light-gray;
+
+      &:focus {
+        background-color: $light-gray;
+      }
+    }
+
+    &-icon {
+      position: absolute;
+      right: 20px;
+      width: 17px;
+      height: 17px;
+      pointer-events: none;
+    }
+  }
+
+  &__type {
+    @include flex-center;
+    gap: 10px;
+    position: relative;
+
+    &-text {
+      font-size: 16px;
+      color: $dark-gray;
+    }
+
+    &-circle {
+      width: 28px;
+      height: 28px;
+      background-color: $filter-background;
+      border-radius: 50%;
+      @include flex-center;
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+    }
+
+    &-dropdown {
+      position: absolute;
+      width: 112px;
+      height: 28px;
+      top: 50%;
+      left: 40px;
+      transform: translateY(-50%);
+      display: none;
+      background-color: $filter-background;
+      border-radius: 14px;
+      padding: 0px 7px;
+      @include flex-center;
+    }
+
+    &-options {
+      display: flex;
+      gap: 5px;
+    }
+
+    &-color {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: 0.3s ease;
+
+      &--gray {
+        background-color: $filter-color-gray;
+      }
+
+      &--gold {
+        background-color: $filter-color-gold;
+      }
+
+      &--teal {
+        background-color: $filter-color-teal;
+      }
+
+      &--teal-outline {
+        background-color: transparent;
+        border: $filter-border-outline-teal;
+      }
+
+      &--gray-outline {
+        background-color: transparent;
+        border: $filter-border-outline-gray;
+      }
+    }
+
+    &-close {
+      display: none;
+      position: absolute;
+      left: calc(100% + 7px);
+      background: none;
+      border: none;
+      cursor: pointer;
+      width: 8px;
+      height: 8px;
+
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+
+    &.open {
+      margin-right: 81px;
+
+      .filters__type-close {
+        display: block;
+      }
+    }
+
+    &-trigger.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    &-circle.selected {
+      background-color: var(--selected-color, $light-gray);
+    }
+  }
+
+&__occupation {
+    @include flex-center;
+    gap: 10px;
+
+    &-text,
+    &-value {
+      font-size: 16px;
+      color: $dark-gray;
+    }
+
+    &-dropdown {
+      @include flex-center;
+      gap: 10px;
+      cursor: pointer;
+    }
+
+    &-background {
+      background-color: $light-gray;
+      padding: 5px 10px;
+      width: 54px;
+      border-radius: 14.5px;
+      height: 29px;
+      @include flex-center;
+    }
+  }
+}
+
+.services__list {
+  display: flex;
+  justify-content: space-between;
+  gap: 90px;
+  max-width: 100%;
+}
+
+.service {
+  width: 202px;
+  text-align: start;
+
+  &__icon {
+    height: 85px;
+    margin-bottom: 30px;
+  }
+
+  &__title {
+    font-size: 16px;
+    text-transform: uppercase;
+    color: $services-text;
+    margin-bottom: 10px;
+    width: 68%;
+  }
+
+  &__description {
+    font-size: 14px;
+    color: $services-text;
+    margin-bottom: 0;
+    word-wrap: break-word;
+    line-height: 1.5;
+
+    &::before {
+      content: '';
+      height: 3px;
+      display: flex;
+      margin-bottom: 15px;
+      background-color: var(--before-color, $golden-sand);
+    }
+  }
+}
+
+.pagination {
+  @include flex-center;
+  margin: 83px 0 10px;
+  gap: 25px;
+
+  &__button {
+    background: none;
+    border: none;
+    cursor: pointer;
+
+    img {
+      width: 8px;
+      height: 13px;
+    }
+  }
+
+  &__numbers {
+    @include flex-center;
+    gap: 35px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    z-index: 1;
+  }
+
+  &__number {
+    @include flex-center;
+    font-size: 16px;
+    color: $dark-gray;
+    position: relative;
+    display: none;
+    cursor: pointer;
+    opacity: 0.2;
+
+    &--visible {
+      display: flex;
+    }
+
+    &--hidden {
+      display: none;
+    }
+
+    &--active {
+      opacity: 1;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 40px;
+        height: 40px;
+        background-color: $light-gray;
+        border-radius: 50%;
+        z-index: -1;
+      }
+    }
+  }
+}
+
+@media (min-width: 1921px) {
+  .services__list {
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 1200px) {
+  .services__list {
+    gap: 5px;
+    justify-content: space-between;
+
+    .service {
+      &__description {
+        &::before {
+          width: 90%;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  .services {
+    padding: 0px;
+
+    &__title {
+      padding: 30px 0px 35px;
+      margin-bottom: 0;
+      font-size: $font-size-l - 1rem;
+    }
+
+    &__list {
+      justify-content: space-between;
+
+      .service {
+        max-width: 180px;
+        min-width: 150px;
+
+        &__title {
+          width: 130px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .services {
+    &__title {
+      width: 85%;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    &__filters {
+      flex-direction: column;
+      margin-bottom: 35px;
+      gap: 20px;
+    }
+
+    &__list {
+      justify-content: center;
+      flex-wrap: wrap;
+
+      .service {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        width: 80%;
+        max-width: none;
+        text-align: center;
+
+        .service {
+          &__description {
+            &::before {
+              width: 50%;
+              margin: 0 auto;
+              margin-bottom: 10px;
+            }
+          }
+        }
+      }
+    }
+
+    &__pagination {
+      margin: 40px 0px 20px;
+    }
+  }
+}
